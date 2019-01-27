@@ -2,6 +2,8 @@ const path = require('path');
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const PropertiesReader = require('properties-reader');
 
 // const errorController = require('./controllers/error');
 // const mongoConnect = require('./util/database').mongoConnect;
@@ -12,7 +14,7 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
-const adminRoutes = require('./routes/admin');
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -26,7 +28,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 //     .catch(err => console.log(err));
 // });
 
+const adminRoutes = require('./routes/admin');
+const noteRoutes = require('./routes/note');
+
 app.use('/admin', adminRoutes);
+app.use('/note', noteRoutes);
 
 app.use('/', (req, res, next) => {
     res.render('index', {
@@ -35,6 +41,19 @@ app.use('/', (req, res, next) => {
     });
 });
 
+
+const properties = PropertiesReader('secure.properties');
+mongodbUser = properties.get('mongodb.user');
+mongodbPassword = properties.get('mongodb.password');
+
+mongoose.connect(`mongodb+srv://${mongodbUser}:${mongodbPassword}@cluster0-dunki.mongodb.net/mynotes?retryWrites=true`, { useNewUrlParser: true })
+    .then(result => {
+        app.listen(3000);
+    })
+    .catch(err => {
+        console.log(err);
+    });
+
 //app.use(errorController.get404);
 
-app.listen(3000);
+
