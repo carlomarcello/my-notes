@@ -1,0 +1,10 @@
+<%- include('../includes/head.ejs') %>
+<body>
+    <%- include('../includes/navigation.ejs') %>
+    <main>
+        <% for (let category of categories) { %>
+            Name: <%= category.name %><br/><br/>
+        <% } %>
+    </main>
+</body>
+</html>

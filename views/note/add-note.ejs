@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+<%- include('../includes/head.ejs') %>
 <body>
+    <%- include('../includes/navigation.ejs') %>
     <main>
         <form class="product-form" action="/note/<% if (editing) { %>edit-note<% } else { %>add-note<% } %>" method="POST">
             <div class="form-control">
@@ -22,6 +16,13 @@
             <% } %>
 
             <button class="btn" type="submit"><% if (editing) { %>Update Note<% } else { %>Add Note<% } %></button>
+
+            <ul>
+                <% for (let category of categories) { %>
+                <li><%= category.name %></li>
+                <% } %>
+            </ul>
+
         </form>
     </main>
 </body>

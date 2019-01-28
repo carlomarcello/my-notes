@@ -1,0 +1,14 @@
+<%- include('../includes/head.ejs') %>
+<body>
+    <%- include('../includes/navigation.ejs') %>
+    <main>
+        <a href="/note/add-note" class="btn">New note</a>
+        <br>
+
+        <% for (let note of notes) { %>
+            Title: <%= note.title %><br/>
+            Text: <%= note.text %><br/><br/>
+        <% } %>        
+    </main>
+</body>
+</html>

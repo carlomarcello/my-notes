@@ -1,0 +1,18 @@
+<%- include('../includes/head.ejs') %>
+<body>
+    <%- include('../includes/navigation.ejs') %>
+    <main>
+        <form class="product-form" action="/category/<% if (editing) { %>edit-category<% } else { %>add-category<% } %>" method="POST">
+            <div class="form-control">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" value="<% if (editing) { %><%= category.name %><% } %>">
+            </div>
+            <% if (editing) { %>
+                <input type="hidden" value="<%= category._id %>" name="categoryId">
+            <% } %>
+
+            <button class="btn" type="submit"><% if (editing) { %>Update Category<% } else { %>Add Category<% } %></button>
+        </form>
+    </main>
+</body>
+</html>

@@ -30,9 +30,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const adminRoutes = require('./routes/admin');
 const noteRoutes = require('./routes/note');
+const categoryRoutes = require('./routes/category');
 
 app.use('/admin', adminRoutes);
 app.use('/note', noteRoutes);
+app.use('/category', categoryRoutes);
 
 app.use('/', (req, res, next) => {
     res.render('index', {
