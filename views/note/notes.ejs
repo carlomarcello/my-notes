@@ -7,7 +7,9 @@
 
         <% for (let note of notes) { %>
             Title: <%= note.title %><br/>
-            Text: <%= note.text %><br/><br/>
+            Text: <%= note.text %><br/>
+            <a href="/note/edit-note/<%= note._id %>" class="btn">Edit note</a>
+            <br/>
         <% } %>        
     </main>
 </body>

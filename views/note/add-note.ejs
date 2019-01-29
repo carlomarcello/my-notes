@@ -18,8 +18,10 @@
             <button class="btn" type="submit"><% if (editing) { %>Update Note<% } else { %>Add Note<% } %></button>
 
             <ul>
-                <% for (let category of categories) { %>
-                <li><%= category.name %></li>
+                <% if (categories) { %>
+                    <% for (let category of categories) { %>
+                    <li><%= category.name %></li>
+                    <% } %>
                 <% } %>
             </ul>
 

@@ -50,3 +50,21 @@ exports.getNotes = (req, res, next) => {
             console.log(err);
         });
 };
+
+exports.getNote = (req, res, next) => {
+    const noteId = req.params.noteId;
+
+    Note.findById(noteId)
+        .then(note => {
+            res.render('note/add-note', {
+                pageTitle: 'Edit Note',
+                path: '/note/add-note',
+                note: note,
+                categories: null,
+                editing: true
+            });
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};
