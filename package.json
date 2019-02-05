@@ -20,8 +20,10 @@
   "homepage": "https://github.com/carlomarcello/my-notes#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "connect-mongodb-session": "^2.0.8",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "express-session": "^1.15.6",
     "mongodb": "^3.1.13",
     "mongoose": "^5.4.7",
     "properties-reader": "0.0.16"

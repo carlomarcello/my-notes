@@ -4,6 +4,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const PropertiesReader = require('properties-reader');
+const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
 
 const User = require('./models/user');
 
@@ -11,15 +13,30 @@ const User = require('./models/user');
 // const mongoConnect = require('./util/database').mongoConnect;
 // const User = require('./models/user');
 
+const properties = PropertiesReader('secure.properties');
+const mongodbUser = properties.get('mongodb.user');
+const mongodbPassword = properties.get('mongodb.password');
+const MONGODB_URI = `mongodb+srv://${mongodbUser}:${mongodbPassword}@cluster0-dunki.mongodb.net/mynotes`;
+
+const store = new MongoDBStore({
+    uri: MONGODB_URI,
+    collection: 'sessions'
+});
+
 const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+    secret: 'my secret', 
+    resave: false, 
+    saveUninitialized: false, 
+    store: store})
+);
 
 app.use((req, res, next) => {
     User.findById('5c50d6898e17092dd83250c3')
@@ -48,11 +65,9 @@ app.use('/', (req, res, next) => {
 });
 
 
-const properties = PropertiesReader('secure.properties');
-mongodbUser = properties.get('mongodb.user');
-mongodbPassword = properties.get('mongodb.password');
 
-mongoose.connect(`mongodb+srv://${mongodbUser}:${mongodbPassword}@cluster0-dunki.mongodb.net/mynotes?retryWrites=true`, { useNewUrlParser: true })
+
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
     .then(result => {
         User.findOne().then(user => {
             if (!user) {
