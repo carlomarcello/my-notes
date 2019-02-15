@@ -3,16 +3,17 @@ const path = require('path');
 const express = require('express');
 
 const noteController = require('../controllers/note');
+const isAuth = require('../middleware/is-auth');
 
 const router = express.Router();
 
 // Root = /note/
-router.get('/add-note', noteController.getAddNote);
+router.get('/add-note', isAuth, noteController.getAddNote);
 
-router.post('/add-note', noteController.postAddNote);
+router.post('/add-note', isAuth, noteController.postAddNote);
 
-router.get('/notes', noteController.getNotes);
+router.get('/notes', isAuth, noteController.getNotes);
 
-router.get('/edit-note/:noteId', noteController.getNote);
+router.get('/edit-note/:noteId', isAuth, noteController.getNote);
 
 module.exports = router;

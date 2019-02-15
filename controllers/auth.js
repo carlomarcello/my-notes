@@ -11,13 +11,13 @@ exports.getLogin = (req, res, next) => {
 
 exports.postLogin = (req, res, next) => {
 	req.session.isLoggedIn = true;
-	res.redirect('/');
+	res.redirect('/note/notes');
 };
 
 exports.postLogout = (req, res, next) => {
 	req.session.destroy(err => {
 		console.log(err);
-		res.redirect('/');
+		res.redirect('/login');
 	});
 };
 

@@ -1,7 +1,10 @@
+
+<% if (isLoggedIn) { %>
 <div class="backdrop"></div>
 <header class="main-header">
     <button id="side-menu-toggle">Menu</button>
     <nav class="main-header__nav">
+       
         <ul class="main-header__item-list">
             <li class="main-header__item">
                 <a class="<%= path === '/note/notes' ? 'active' : '' %>" href="/note/notes">Notes</a>
@@ -14,11 +17,15 @@
             </li>            
         </ul>
         <ul class="main-header__item-list">
+            <!--
             <li class="main-header__item">
                 <a href="/login">Login</a>
             </li>
-            <li class="main-header__item">
-                <a href="/logout">logout</a>
+            -->
+            <li class="main-header__item">                
+                <form action="/logout" method="POST">                    
+                    <button type="submit">Logout</button>
+                </form>
             </li>
         </ul>
     </nav>
@@ -45,3 +52,4 @@
             </li>
         </ul>
 </nav>
+<% } %>
