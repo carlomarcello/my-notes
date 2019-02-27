@@ -16,6 +16,7 @@ const categoryRoutes = require('./routes/category');
 const authRoutes = require('./routes/auth');
 
 const isAuth = require('./middleware/is-auth');
+const error = require('./middleware/error');
 // End of imports
 
 const properties = PropertiesReader('secure.properties');
@@ -71,6 +72,7 @@ app.use('/', isAuth, (req, res, next) => {
         path: 'index'
     });
 });
+app.use(error);
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
     .then(result => {
@@ -95,6 +97,6 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
         console.log(err);
     });
 
-//app.use(errorController.get404);
+//
 
 
